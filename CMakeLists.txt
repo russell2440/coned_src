@@ -9,3 +9,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 #add subdirectories.
 add_subdirectory(/home/harry/work/mydev/main/coned_src/udemy/andrein/algs_ds/quick_sort)
+add_subdirectory(/home/harry/work/mydev/main/coned_src/udemy/andrein/algs_ds/hash_table_t)
