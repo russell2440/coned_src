@@ -1,3 +1,4 @@
+#include <iostream>
 #include "hash_table_t.h"
   
 
@@ -5,47 +6,42 @@
 //==============================================================================
 hash_table_t::hash_table_t(size_t size)
 {
-  (void) size;
+  hash_table.resize(size);
 }
 
 //==============================================================================
 //==============================================================================
 void
-hash_table_t::set(std::string key, uint32_t value)
+hash_table_t::set(const std::string& key, uint32_t value)
 {
-  (void) key;
-  (void) value;
-#if 0
-    let address = this.hash_fn(key);
-    if(!this.data[address]){
-      this.data[address] = [];
-    }
-    this.data[address].push([key,value]);
-    //return this.data;
-#endif
+  auto which_bucket = this->hash_fn(key);
+
+  this->hash_table[which_bucket].push_back({key, value});
 }
 
 //==============================================================================
 //==============================================================================
 uint32_t
-hash_table_t::get(std::string key)
+hash_table_t::get(const std::string& key)
 {
-  (void) key;
-#if 0
-    let address = 0;
-    address = this.hash_fn(key);
-    let current_bucket = this.data[address];
-    if(current_bucket){
-      for(let i=0;i<current_bucket.length;i++){
-        if(key==current_bucket[i][0]){
-          console.log('get bucket',current_bucket,"-",current_bucket[i],'\n');
-          return current_bucket[i][1]
-        }
-      }
+  // Find the bucket for this key and then find the value.
+  // If it's not there return.
+  auto which_bucket = this->hash_fn(key);
+
+  const auto& current_bucket = this->hash_table[which_bucket];
+
+  if (current_bucket.size() == 0)
+  {
+    return 0;
+  }
+
+  for (const auto& kv_pair : current_bucket)
+  {
+    if (key == kv_pair.first)
+    {
+      return kv_pair.second;
     }
-    console.log('get value',value,'\n');
-    return(value);
-#endif
+  }
 
   return 0;
 }
@@ -53,18 +49,31 @@ hash_table_t::get(std::string key)
 //==============================================================================
 //==============================================================================
 void
-hash_table_t::keys(void)
+hash_table_t::display(void)
 {
-#if 0
-    const key_array = [];
-    for (let i=0;i<this.data.length;i++)
+  // Display Table by buckets and their kv pairs.
+  std::cout << __FUNCTION__ << ": HT [" << hash_table.size() << "]: ";
+
+  std::cout << "{";
+  for (const auto& current_bucket: this->hash_table)
+  {
+    std::cout << "{";
+    for (const auto& current_kv_pair: current_bucket)
     {
-      if(this.data[i]){
-        key_array.push(this.data[i][0][0])
-      }
+      std::cout << "{";
+      std::cout
+        << "[" 
+        << current_kv_pair.first 
+        << "],[" 
+        << current_kv_pair.second 
+        << "]";
+      std::cout << "}, ";
     }
-    return key_array;
-#endif
+    std::cout << "},";
+  }
+  std::cout << "}";
+
+  std::cout << std::endl;
 }
 
 //==============================================================================
@@ -72,16 +81,15 @@ hash_table_t::keys(void)
 size_t
 hash_table_t::hash_fn(std::string key)
 {
-  (void) key;
-#if 0
-    let hash = 0;
-    for(let i=0;i<key.length;i++){
-      hash=(hash+key.charCodeAt(i)*i)%this.data.length
-    }
-    console.log('hash_fn at',hash);
-    return hash;
-#endif
+  size_t hash = 0;
 
-  return 0;
+  size_t table_size = this->hash_table.size(); 
+  size_t key_size = key.size();
+  for (size_t i = 0; i < key_size; i++)
+  {
+    hash = (hash + key[i] *  i) % table_size;
+  }
+
+  return hash;
 }
 
