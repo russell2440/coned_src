@@ -1,4 +1,5 @@
 #include "hash_table_t.h"
+#include <iostream>
 
 int main()
 {
@@ -11,19 +12,22 @@ int main()
   ht.display();
   ht.set("grapes",28);
   ht.display();
-  ht.get("grapes");
+  std::cout << ht.get("grapes") << std::endl;
+  std::cout << std::endl;
   
   ht.set("apples",20000);
   ht.display();
   ht.get("apples");
   ht.display();
+  std::cout << ht.get("apples") << std::endl;
+  std::cout << std::endl;
 
   ht.set("peach",40000);
   ht.display();
   ht.get("peach");
   ht.display();
-
-  ht.display();
+  std::cout << ht.get("peach") << std::endl;
+  std::cout << std::endl;
 
   return 0;
 }
