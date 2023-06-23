@@ -22,7 +22,8 @@ int main() {
 
   std::cout << "Hello Russ! insert_sort() test\n";
 
-  for (int *p = numbers; p < numbers+numbers_len; p++){
+  for (int *p = numbers; p < numbers+numbers_len; p++)
+  {
     printf(" %d", *p);
   }
   printf("\n");
@@ -30,8 +31,10 @@ int main() {
   insertion_sort is;
   is.exec(numbers, numbers+numbers_len, numbers);
 
-  for (int *p = numbers; p < numbers+numbers_len; p++){
+  for (int *p = numbers; p < numbers+numbers_len; p++)
+  {
     printf(" %d", *p);
   }
+
   printf("\n");
 }
