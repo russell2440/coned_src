@@ -12,3 +12,4 @@ add_subdirectory(/home/russellshahenian/mydev/coned_src/udemy/andrein/algs_ds/qu
 add_subdirectory(/home/russellshahenian/mydev/coned_src/udemy/andrein/algs_ds/hash_table_t)
 add_subdirectory(/home/russellshahenian/mydev/coned_src/udemy/andrein/algs_ds/binary_search_tree)
 add_subdirectory(/home/russellshahenian/mydev/coned_src/udemy/andrein/algs_ds/insertion_sort)
+add_subdirectory(/home/russellshahenian/mydev/coned_src/udemy/andrein/algs_ds/bubble_sort)
